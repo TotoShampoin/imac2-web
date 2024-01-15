@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.5.2",
+    "sass": "^1.69.7",
     "typescript": "^5.3.3",
     "vite": "^5.0.10",
     "vue-class-component": "^7.2.6",

@@ -1,12 +1,30 @@
 <script setup lang="ts">
-withDefaults(
-    defineProps<{
-        name: string,
-        image?: string
-    }>(), {
-    image: "https://cdn3.iconfinder.com/data/icons/design-n-code/100/272127c4-8d19-4bd3-bd22-2b75ce94ccb4-512.png"
+export type AmiiboContent = {
+    "amiiboSeries": string,
+    "character": string,
+    "gameSeries": string,
+    "head": string,
+    "image": string,
+    "name": string,
+    "release": {
+        "au": string,
+        "eu": string,
+        "jp": string,
+        "na": string
+    },
+    "tail": string,
+    "type": string
 }
+
+
+const { amiibo } = withDefaults(
+    defineProps<{
+        amiibo: AmiiboContent
+    }>(), {}
 );
+
+const { name, image } = amiibo;
+
 </script>
 
 <template>

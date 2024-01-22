@@ -1,37 +1,39 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import Amiibo, { AmiiboContent } from '@/components/Amiibo.vue';
-
-const amiibos = ref<AmiiboContent[]>([]);
-
-async function loadAmiibos(query: string = "") {
-    const res = await fetch(`https://www.amiiboapi.com/api/amiibo?name=${query}`);
-    const json = await res.json() as {amiibo: AmiiboContent[]};
-    return json.amiibo;
-}
-
-loadAmiibos("mario")
-    .then(loaded => amiibos.value = loaded);
+import { RouterLink, RouterView } from 'vue-router'
+// import AmiiboSearch from './components/AmiiboSearch.vue';
 
 </script>
 
 <template>
-    <h1>Amiibos</h1>
-    <input type="text" >
-    <section>
-        <Amiibo v-for="(data, index) in amiibos" :amiibo="data" :key="index" />
-    </section>
+    <div id="body">
+        <header>
+            <h1>Find your Amiibo</h1>
+            <nav>
+                <RouterLink to="/">Home</RouterLink>
+            </nav>
+        </header>
+        <main>
+            <RouterView />
+        </main>
+    </div>
 </template>
 
-<style>
+<style lang="scss" scoped>
+#body {
+    width: 100dvw;
+    height: 100dvh;
+}
 h1 {
     margin: 0;
+    font-size: 1.5rem;
 }
-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+header {
+    background: #4C8;
+    color: #FFF;
     padding: .5rem;
-    gap: .5rem;
+}
+main {
+    height: 100%;
+    overflow: auto;
 }
 </style>

@@ -2,20 +2,20 @@
 
 export async function getAmiibos(query: string = "") {
     const res = await fetch(`https://www.amiiboapi.com/api/amiibo?name=${query}`);
-    const json = await res.json() as {amiibo: AmiiboContent[]};
+    const json = await res.json() as {amiibo: AmiiboType[]};
     return json.amiibo;
 }
 
 export async function getOneAmiibo(id: string) {
     const res = await fetch(`https://www.amiiboapi.com/api/amiibo?id=${id}`);
-    const json = await res.json() as {amiibo: AmiiboContent[]};
+    const json = await res.json() as {amiibo: AmiiboType};
     return json.amiibo;
 }
 
 
 
 
-export type AmiiboContent = {
+export type AmiiboType = {
     "amiiboSeries": string,
     "character": string,
     "gameSeries": string,

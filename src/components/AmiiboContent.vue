@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { AmiiboType } from '@/composables/amiibos';
-import { computed } from 'vue';
+import { AmiiboType } from "@/composables/amiibos";
 
 const { amiibo } = withDefaults(
     defineProps<{
@@ -8,21 +7,12 @@ const { amiibo } = withDefaults(
     }>(), {}
 );
 
-const exists = computed(() => amiibo !== undefined);
-
-const {
-    name,
-    image,
-} = amiibo!;
+const { name = "unnamed", image = "" } = amiibo!;
 
 </script>
 
 <template>
-    <article v-if="exists">
-        <h1>{{ name }}</h1>
-        <img v-bind:src="image" alt="">
-    </article>
-    <article v-else>
+    <article>
         <h1>{{ name }}</h1>
         <img v-bind:src="image" alt="">
     </article>

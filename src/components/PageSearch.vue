@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import AmiiboPreview from '@/components/AmiiboPreview.vue';
-import { getAmiibos, AmiiboContent } from "@/composables/amiiboGetters";
-// import { AmiiboContent } from "@/types/Amiibo";
+import { getAmiibos, AmiiboType } from "@/composables/amiibos";
 
-const amiibo_database = ref<AmiiboContent[]>([]);
-
+const amiibo_database = ref<AmiiboType[]>([]);
 const search = ref<string>("");
-
-const amiibos = computed(() => amiibo_database.value.filter(amiibo => amiibo.name.includes(search.value)));
+const amiibos = computed(() => 
+    amiibo_database.value
+        .filter(amiibo => amiibo.name.includes(search.value))
+);
 
 const is_loading = ref<boolean>(false);
-const loading_icon_style = computed(() => is_loading.value ? "grid" : "none");
+const loading_icon_style = computed(() => 
+    is_loading.value ? "grid" : "none"
+);
 
 async function loadDatabase() {
     is_loading.value = true;

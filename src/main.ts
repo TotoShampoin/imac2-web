@@ -3,13 +3,14 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import App from './App.vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
-import AmiiboSearch from './components/AmiiboSearch.vue'
+import AmiiboSearch from '@/view/AmiiboSearch.vue'
 
 
 const router = createRouter({
     history: createWebHashHistory(),
     routes: [
-        {path: "/", component: AmiiboSearch}
+        {path: "/", component: AmiiboSearch},
+        // {path: "/"}
     ]
 })
 

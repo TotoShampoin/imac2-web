@@ -8,9 +8,9 @@ import { RouterLink, RouterView } from 'vue-router'
     <div id="body">
         <header>
             <h1>Find your Amiibo</h1>
-            <nav>
+            <!-- <nav>
                 <RouterLink to="/">Home</RouterLink>
-            </nav>
+            </nav> -->
         </header>
         <main>
             <RouterView />

@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import AmiiboPreview from '@/components/AmiiboPreview.vue';
-import { AmiiboContent } from "@/types/Amiibo";
-import { getAmiibos } from "@/composables/getAmiibos";
+import { getAmiibos, AmiiboContent } from "@/composables/amiiboGetters";
+// import { AmiiboContent } from "@/types/Amiibo";
 
 const amiibo_database = ref<AmiiboContent[]>([]);
+
+const search = ref<string>("");
+
+const amiibos = computed(() => amiibo_database.value.filter(amiibo => amiibo.name.includes(search.value)));
 
 const is_loading = ref<boolean>(false);
 const loading_icon_style = computed(() => is_loading.value ? "grid" : "none");
@@ -17,20 +21,17 @@ async function loadDatabase() {
 loadDatabase();
 
 async function searchAmiibos(query: string = "") {
-    is_loading.value = true;
-    const loaded = await getAmiibos(query);
-    amiibo_database.value = loaded;
-    is_loading.value = false;
+    search.value = query;
 }
 
 </script>
 
 <template>
     <header>
-        <input type="search" placeholder="Search" @change="searchAmiibos((<HTMLInputElement>$event.target).value)" >
+        <input type="search" placeholder="Search" @input="searchAmiibos((<HTMLInputElement>$event.target).value)" >
     </header>
     <section>
-        <AmiiboPreview v-for="(data, index) in amiibo_database" 
+        <AmiiboPreview v-for="(data, index) in amiibos" 
             :amiibo="data" :key="data.head+data.tail" />
     </section>
     <div class="overlay">

@@ -9,14 +9,27 @@ export async function fetchOneAmiibo(id: string) {
     return json.amiibo;
 }
 
-const AMIIBO_DATABASE = fetchAllAmiibos();
+let AMIIBO_DATABASE: AmiiboType[] = [];
+
+let is_filled = false;
+async function fillWithAllAmiibos() {
+    if(is_filled) return;
+    AMIIBO_DATABASE = await fetchAllAmiibos();
+    is_filled = true;
+}
+async function fillWithOneAmiibo(id: string) {
+    if(is_filled) return;
+    AMIIBO_DATABASE = [await fetchOneAmiibo(id)];
+}
 
 export async function getAllAmiibos() {
-    return await AMIIBO_DATABASE;
+    await fillWithAllAmiibos();
+    return AMIIBO_DATABASE;
 }
 
 export async function getOneAmiibo(id: string) {
-    return (await AMIIBO_DATABASE).find(amiibo => id === `${amiibo.head}${amiibo.tail}`);
+    await fillWithOneAmiibo(id);
+    return (AMIIBO_DATABASE).find(amiibo => id === `${amiibo.head}${amiibo.tail}`);
 }
 
 

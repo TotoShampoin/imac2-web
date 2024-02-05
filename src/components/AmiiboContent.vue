@@ -10,22 +10,39 @@ const { amiibo } = withDefaults(
 
 const exists = computed(() => amiibo !== undefined)
 
-// const properties = computed(() => Object.entries(amiibo!).map())
+// const properties = computed(() => Object.entries(amiibo!).map(prop => ({key: prop[0], value: prop[1]})));
 
 const {
     name,
-    image
+    image,
+    amiiboSeries,
+    character,
+    head,
+    release,
+    gameSeries,
+    tail,
+    type
 } = amiibo!;
+
+const {
+    au: release_au,
+    eu: release_eu,
+    na: release_na,
+    jp: release_jp
+} = release!;
+
+const id = `${head}${tail}`;
 
 </script>
 
 <template>
     <article v-if="exists">
         <img v-bind:src="image" alt="">
-        <div>
-            <h1>Name</h1>
-            <p>{{ name }}</p>
-        </div>
+        <div> <h1>Name</h1> <p>{{ name }}</p> </div>
+        <div> <h1>Character</h1> <p>{{ character }} from the {{ gameSeries }} series</p> </div>
+        <div> <h1>Series</h1> <p>{{ amiiboSeries }}</p> </div>
+        <div> <h1>ID</h1> <p>{{ id }}</p> </div>
+        <div> <h1>Type</h1> <p>{{ type }}</p> </div>
     </article>
 </template>
 

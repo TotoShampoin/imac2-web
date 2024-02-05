@@ -67,7 +67,7 @@ const shown_amiibos = computed(() => amiibos.value.slice(page.value * PAGE_SIZE,
         <button @click="nextPage">next</button>
     </nav>
     <section>
-        <AmiiboPreview v-for="(data, index) in shown_amiibos" 
+        <AmiiboPreview v-for="data of shown_amiibos" 
             :amiibo="data" :key="data.head+data.tail" />
     </section>
     <LoadIcon :shown="amiibo_database.length === 0" />
@@ -96,7 +96,6 @@ nav {
         text-align: center;
     }
 }
-
 section {
     display: flex;
     flex-wrap: wrap;

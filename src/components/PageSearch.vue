@@ -29,10 +29,6 @@ async function loadDatabase() {
 }
 loadDatabase();
 
-function searchAmiibos(query: string = "") {
-    search.value = query;
-}
-
 function nextPage() {
     if((page.value + 1) * PAGE_SIZE < amiibos.value.length) {
         page.value++;
@@ -56,7 +52,7 @@ function setPage(new_page: number | string) {
 
 <template>
     <header>
-        <input type="search" placeholder="Search" @input="searchAmiibos((<HTMLInputElement>$event.target).value)" />
+        <input type="search" placeholder="Search" v-model="search" />
         <nav>
             <button @click="prevPage">prev</button>
             <input @change="setPage((<HTMLInputElement>$event.target).value)" :value="page">

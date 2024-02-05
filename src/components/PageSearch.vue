@@ -2,8 +2,7 @@
 import { computed, ref } from 'vue';
 import AmiiboPreview from '@/components/AmiiboPreview.vue';
 import { getAllAmiibos, AmiiboType } from "@/composables/amiibos";
-
-const PAGE_SIZE = 24;
+import { PAGE_SIZE } from "@/composables/constants";
 
 const is_loading = ref<boolean>(false);
 const loading_icon_style = computed(() => 

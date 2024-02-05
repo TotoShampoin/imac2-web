@@ -2,11 +2,9 @@
 import { computed } from "vue";
 import { AmiiboType } from "@/composables/amiibos";
 
-const { amiibo } = withDefaults(
-    defineProps<{
-        amiibo?: AmiiboType
-    }>(), {}
-);
+const { amiibo } = defineProps<{
+    amiibo: AmiiboType
+}>();
 
 const exists = computed(() => amiibo !== undefined)
 

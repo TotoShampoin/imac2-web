@@ -25,6 +25,5 @@ loadAmiibo();
 section {
     display: grid;
     place-items: center;
-    margin: 2rem 0;
 }
 </style>

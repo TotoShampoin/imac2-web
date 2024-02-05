@@ -1,31 +1,26 @@
 <script setup lang="ts">
 import { AmiiboType } from '@/composables/amiibos';
-import { computed } from 'vue';
+import { RouterLink } from 'vue-router';
 
 const { amiibo } = withDefaults(
     defineProps<{
-        amiibo?: AmiiboType
+        amiibo: AmiiboType
     }>(), {}
 );
 
-const exists = computed(() => amiibo !== undefined);
+const { name, image, head, tail } = amiibo!;
 
-const {
-    name,
-    image,
-} = amiibo!;
+const link = `/amiibo/${head}${tail}`;
 
 </script>
 
 <template>
-    <article v-if="exists">
-        <h1>{{ name }}</h1>
-        <img v-bind:src="image" alt="">
-    </article>
-    <article v-else>
-        <h1>{{ name }}</h1>
-        <img v-bind:src="image" alt="">
-    </article>
+    <RouterLink :to="link">
+        <article>
+            <h1>{{ name }}</h1>
+            <img v-bind:src="image" alt="">
+        </article>
+    </RouterLink>
 </template>
 
 <script lang="ts">
@@ -34,6 +29,12 @@ export default {}
 </script>
 
 <style scoped lang="scss">
+a {
+    display: block;
+    color: inherit;
+    text-decoration: inherit;
+}
+
 article {
     display: block;
     width: 11rem;

@@ -1,7 +1,7 @@
 // import { AmiiboContent } from "@/types/Amiibo";
 
-export async function getAmiibos(query: string = "") {
-    const res = await fetch(`https://www.amiiboapi.com/api/amiibo?name=${query}`);
+export async function getAllAmiibos() {
+    const res = await fetch(`https://www.amiiboapi.com/api/amiibo`);
     const json = await res.json() as {amiibo: AmiiboType[]};
     return json.amiibo;
 }

@@ -16,7 +16,15 @@ loadAmiibo();
 </script>
 
 <template>
-    <AmiiboContent :amiibo="amiibo" />
+    <section>
+        <AmiiboContent :amiibo="amiibo" />
+    </section>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+section {
+    display: grid;
+    place-items: center;
+    margin: 2rem 0;
+}
+</style>

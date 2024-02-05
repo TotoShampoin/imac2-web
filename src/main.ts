@@ -11,7 +11,7 @@ const router = createRouter({
     history: createWebHashHistory(),
     routes: [
         {path: "/", component: PageSearch},
-        {path: "/:id", component: PageView},
+        {path: "/amiibo/:id", component: PageView},
     ]
 })
 

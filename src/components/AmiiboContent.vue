@@ -46,15 +46,12 @@ const id = `${head}${tail}`;
     </article>
 </template>
 
-<script lang="ts">
-
-export default {}
-</script>
-
 <style scoped lang="scss">
 article {
     display: block;
-    width: 20rem;
+    // width: 20rem;
+    width: min(min-content, 100%);
+    margin: 1rem;
     padding: .5rem;
     border: #AAA 1px solid;
     border-radius: 1rem;
@@ -71,8 +68,8 @@ div {
 
 h1, p {
     margin: 0;
-    text-wrap: nowrap;
-    overflow: auto;
+    // text-wrap: nowrap;
+    // overflow: auto;
 }
 h1 {
     padding: .25rem 1rem;

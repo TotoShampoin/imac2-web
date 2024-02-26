@@ -3,7 +3,7 @@ import { computed } from "vue";
 import { AmiiboType } from "@/composables/amiibos";
 
 const { amiibo } = defineProps<{
-    amiibo: AmiiboType
+    amiibo?: AmiiboType
 }>();
 
 const exists = computed(() => amiibo !== undefined)
@@ -11,15 +11,7 @@ const exists = computed(() => amiibo !== undefined)
 // const properties = computed(() => Object.entries(amiibo!).map(prop => ({key: prop[0], value: prop[1]})));
 
 const {
-    name,
-    image,
-    amiiboSeries,
-    character,
-    head,
-    release,
-    gameSeries,
-    tail,
-    type
+    name, image, amiiboSeries, character, head, release, gameSeries, tail, type
 } = amiibo!;
 
 const {

@@ -4,6 +4,7 @@ import LoadIcon from "@/components/LoadIcon.vue";
 import { computed, ref } from 'vue';
 import { getAllAmiibos, AmiiboType } from "@/composables/amiibos";
 import { PAGE_SIZE } from "@/composables/constants";
+import PageSearchFormula from './PageSearchFormula.vue';
 
 
 // === AMIIBOS ===
@@ -14,31 +15,30 @@ async function loadDatabase() {
 }
 loadDatabase();
 
+const amiibo_types = computed(() => 
+    amiibo_database.value
+        .map(amiibo => amiibo.type)
+        .filter((amiibo, idx, array) => array.indexOf(amiibo) === idx)
+)
+
 
 // === SEARCH ===
 
 const search = ref<string>("");
-
+const s_type = ref<string>("");
 
 const amiibos = computed(() => 
     amiibo_database.value
-        .filter(amiibo => amiibo.name.includes(search.value))
+        .filter(amiibo => 
+            amiibo.name.includes(search.value) &&
+            amiibo.type.includes(s_type.value)
+        )
 );
 
 
 // === PAGE SYSTEM ===
 
 const page = ref<number>(0);
-function nextPage() {
-    if((page.value + 1) * PAGE_SIZE < amiibos.value.length) {
-        page.value++;
-    }
-}
-function prevPage() {
-    if(page.value > 0) {
-        page.value--;
-    }
-}
 function setPage(new_page: number | string) {
     if(typeof new_page === "string") {
         new_page = parseInt(new_page);
@@ -52,20 +52,14 @@ function setPage(new_page: number | string) {
 
 const shown_amiibos = computed(() => amiibos.value.slice(page.value * PAGE_SIZE, (page.value + 1) * PAGE_SIZE));
 
-
-
 </script>
 
 <template>
-    <header>
-        <input type="search" placeholder="Search" v-model="search" />
-    </header>
-    <!-- TODO: Make page management into a component, somehow -->
-    <nav>
-        <button @click="prevPage">prev</button>
-        <input @change="setPage((<HTMLInputElement>$event.target).value)" :value="page">
-        <button @click="nextPage">next</button>
-    </nav>
+    <PageSearchFormula
+        :page="page" :set-page="setPage"
+        v-model:search="search"
+        v-model:type="s_type"
+        :types="amiibo_types" />
     <section>
         <AmiiboPreview v-for="data of shown_amiibos" 
             :amiibo="data" :key="data.head+data.tail" />
@@ -74,28 +68,6 @@ const shown_amiibos = computed(() => amiibos.value.slice(page.value * PAGE_SIZE,
 </template>
 
 <style lang="scss" scoped>
-input[type=search] {
-    display: block;
-    width: 100%;
-    max-width: 20rem;
-    margin: 1rem auto;
-    padding: .5rem 1rem;
-    font: inherit;
-}
-nav {
-    display: flex;
-    justify-content: center;
-    gap: .5rem;
-    margin: 1rem;
-    button, input {
-        display: block;
-        width: 4rem;
-        height: 2rem;
-        margin: 0;
-        padding: 0;
-        text-align: center;
-    }
-}
 section {
     display: flex;
     flex-wrap: wrap;

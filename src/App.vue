@@ -20,7 +20,8 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <style lang="scss" scoped>
 #body {
-    width: 100dvw;
+    display: flex;
+    flex-direction: column;
     height: 100dvh;
 }
 h1 {
@@ -33,7 +34,7 @@ header {
     padding: .5rem;
 }
 main {
-    height: 100%;
+    flex-grow: 1;
     overflow: auto;
 }
 </style>

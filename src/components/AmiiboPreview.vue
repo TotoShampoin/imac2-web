@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { AmiiboType } from '@/composables/amiibos';
 import { RouterLink } from 'vue-router';
+import IconFavourite from '@/assets/icons/IconFavourite.vue';
+import { ref } from 'vue';
 
 const { amiibo } = withDefaults(
     defineProps<{
@@ -12,15 +14,25 @@ const { name, image, head, tail } = amiibo!;
 
 const link = `/amiibo/${head}${tail}`;
 
+const is_favourite = ref<boolean>(false);
+function toggleFavourite() {
+    is_favourite.value = !is_favourite.value;
+    console.log(is_favourite.value);
+}
+
 </script>
 
 <template>
-    <RouterLink :to="link">
-        <article>
-            <h1>{{ name }}</h1>
+    <article>
+        <RouterLink :to="link">
             <img v-bind:src="image" alt="">
-        </article>
-    </RouterLink>
+        </RouterLink>
+        <h1>{{ name }}</h1>
+        <label for="favourite" class="favourite">
+            <IconFavourite class="fav-icon" :filled="is_favourite" color="#FC0" />
+        </label>
+        <input type="checkbox" id="favourite" :checked="is_favourite" v-on:change="toggleFavourite" />
+    </article>
 </template>
 
 <script lang="ts">
@@ -29,14 +41,16 @@ export default {}
 </script>
 
 <style scoped lang="scss">
-a {
-    display: block;
-    color: inherit;
-    text-decoration: inherit;
-}
-
 article {
-    display: block;
+    position: relative;
+    // display: flex;
+    // flex-direction: column;
+    display: grid;
+    grid-template-areas:
+        "image image"
+        "name favourite";
+    grid-template-columns: auto min-content;
+    gap: .5rem;
     width: 11rem;
     padding: .5rem;
     border: #AAA 1px solid;
@@ -44,11 +58,19 @@ article {
 }
 
 h1 {
+    grid-area: name;
     margin: 0;
     text-wrap: nowrap;
     overflow: auto;
 }
 
+
+a {
+    grid-area: image;
+    display: block;
+    color: inherit;
+    text-decoration: inherit;
+}
 img {
     display: block;
     width: 100%;
@@ -56,5 +78,20 @@ img {
     border-radius: .5rem;
     object-fit: cover;
     object-position: top;
+}
+
+.favourite {
+    display: block;
+    grid-area: favourite;
+    width: 1.5rem;
+    height: 1.5rem;
+    .fav-icon {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+    &+input {
+        display: none;
+    }
 }
 </style>

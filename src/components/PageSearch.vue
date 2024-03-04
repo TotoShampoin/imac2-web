@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AmiiboPreview from '@/components/AmiiboPreview.vue';
+import AmiiboCollection from './AmiiboCollection.vue';
 import LoadIcon from "@/components/LoadIcon.vue";
 import { computed, ref } from 'vue';
 import { getAllAmiibos, AmiiboType } from "@/composables/amiibos";
@@ -72,19 +72,8 @@ const shown_amiibos = computed(() => amiibos.value.slice(page.value * PAGE_SIZE,
         v-model:game="s_series"
         :types="amiibo_types"
         :series="amiibo_series" />
-    <section>
-        <AmiiboPreview v-for="data of shown_amiibos" 
-            :amiibo="data" :key="data.head+data.tail" />
-    </section>
+    <AmiiboCollection :amiibos="shown_amiibos" />
     <LoadIcon :shown="amiibo_database.length === 0" />
 </template>
 
-<style lang="scss" scoped>
-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 1rem 0;
-    gap: .5rem;
-}
-</style>
+<style lang="scss" scoped></style>

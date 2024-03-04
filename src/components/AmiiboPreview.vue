@@ -28,10 +28,10 @@ function toggleFavourite() {
             <img v-bind:src="image" alt="">
         </RouterLink>
         <h1>{{ name }}</h1>
-        <label for="favourite" class="favourite">
+        <label class="favourite">
             <IconFavourite class="fav-icon" :filled="is_favourite" color="#FC0" />
+            <input type="checkbox" :checked="is_favourite" v-on:change="toggleFavourite" />
         </label>
-        <input type="checkbox" id="favourite" :checked="is_favourite" v-on:change="toggleFavourite" />
     </article>
 </template>
 
@@ -90,7 +90,7 @@ img {
         width: 100%;
         height: 100%;
     }
-    &+input {
+    input {
         display: none;
     }
 }

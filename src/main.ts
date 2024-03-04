@@ -13,7 +13,7 @@ const router = createRouter({
     routes: [
         {path: "/", component: PageSearch},
         {path: "/amiibo/:id", component: PageView},
-        {path: "/favorite", component: PageFavourites}
+        {path: "/favourite", component: PageFavourites}
     ]
 })
 

@@ -8,7 +8,7 @@ import { RouterLink, RouterView } from 'vue-router'
     <div id="body">
         <header>
             <RouterLink to="/"><h1>Find Amiibo</h1></RouterLink>
-            <RouterLink to="/favorite">Favorites</RouterLink>
+            <RouterLink to="/favourite">Favourites</RouterLink>
         </header>
         <main>
             <RouterView />

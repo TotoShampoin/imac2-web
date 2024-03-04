@@ -7,10 +7,8 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
     <div id="body">
         <header>
-            <RouterLink to="/"><h1>Find your Amiibo</h1></RouterLink>
-            <!-- <nav>
-                <RouterLink to="/">Home</RouterLink>
-            </nav> -->
+            <RouterLink to="/"><h1>Find Amiibo</h1></RouterLink>
+            <RouterLink to="/favorite">Favorites</RouterLink>
         </header>
         <main>
             <RouterView />
@@ -29,6 +27,9 @@ h1 {
     font-size: 1.5rem;
 }
 header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background: #4C8;
     color: #FFF;
     padding: .5rem;

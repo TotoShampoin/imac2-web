@@ -5,6 +5,7 @@ import App from './App.vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import PageSearch from '@/components/PageSearch.vue'
 import PageView from './components/PageView.vue'
+import PageFavourites from './components/PageFavourites.vue'
 
 
 const router = createRouter({
@@ -12,6 +13,7 @@ const router = createRouter({
     routes: [
         {path: "/", component: PageSearch},
         {path: "/amiibo/:id", component: PageView},
+        {path: "/favorite", component: PageFavourites}
     ]
 })
 

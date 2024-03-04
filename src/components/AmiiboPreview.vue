@@ -3,6 +3,7 @@ import { AmiiboType } from '@/composables/amiibos';
 import { RouterLink } from 'vue-router';
 import IconFavourite from '@/assets/icons/IconFavourite.vue';
 import { ref } from 'vue';
+import { addFavourite, isFavourite, removeFavourite } from '@/composables/favourites';
 
 const { amiibo } = withDefaults(
     defineProps<{
@@ -14,10 +15,14 @@ const { name, image, head, tail } = amiibo!;
 
 const link = `/amiibo/${head}${tail}`;
 
-const is_favourite = ref<boolean>(false);
+const is_favourite = ref<boolean>(isFavourite(`${head}${tail}`));
 function toggleFavourite() {
     is_favourite.value = !is_favourite.value;
-    console.log(is_favourite.value);
+    if(is_favourite.value) {
+        addFavourite(`${head}${tail}`);
+    } else {
+        removeFavourite(`${head}${tail}`);
+    }
 }
 
 </script>

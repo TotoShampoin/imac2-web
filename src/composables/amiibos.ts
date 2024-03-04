@@ -21,6 +21,10 @@ async function fillWithOneAmiibo(id: string) {
     if(is_filled) return;
     AMIIBO_DATABASE = [await fetchOneAmiibo(id)];
 }
+async function fillWithNAmiibos(...ids: string[]) {
+    if(is_filled) return;
+    AMIIBO_DATABASE = await Promise.all(ids.map(id => fetchOneAmiibo(id)));
+}
 
 export async function getAllAmiibos() {
     await fillWithAllAmiibos();
@@ -30,6 +34,11 @@ export async function getAllAmiibos() {
 export async function getOneAmiibo(id: string) {
     await fillWithOneAmiibo(id);
     return (AMIIBO_DATABASE).find(amiibo => id === `${amiibo.head}${amiibo.tail}`);
+}
+
+export async function getNAmiibos(...ids: string[]) {
+    await fillWithNAmiibos(...ids);
+    return AMIIBO_DATABASE.filter(amiibo => ids.includes(`${amiibo.head}${amiibo.tail}`));
 }
 
 

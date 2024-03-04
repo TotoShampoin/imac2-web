@@ -19,6 +19,14 @@ const amiibo_types = computed(() =>
     amiibo_database.value
         .map(amiibo => amiibo.type)
         .filter((amiibo, idx, array) => array.indexOf(amiibo) === idx)
+        .sort()
+)
+
+const amiibo_series = computed(() =>
+    amiibo_database.value
+        .map(amiibo => amiibo.gameSeries)
+        .filter((amiibo, idx, array) => array.indexOf(amiibo) === idx)
+        .sort()
 )
 
 
@@ -26,12 +34,14 @@ const amiibo_types = computed(() =>
 
 const search = ref<string>("");
 const s_type = ref<string>("");
+const s_series = ref<string>("");
 
 const amiibos = computed(() => 
     amiibo_database.value
         .filter(amiibo => 
             amiibo.name.includes(search.value) &&
-            amiibo.type.includes(s_type.value)
+            amiibo.type.includes(s_type.value) &&
+            amiibo.gameSeries.includes(s_series.value)
         )
 );
 
@@ -59,7 +69,9 @@ const shown_amiibos = computed(() => amiibos.value.slice(page.value * PAGE_SIZE,
         :page="page" :set-page="setPage"
         v-model:search="search"
         v-model:type="s_type"
-        :types="amiibo_types" />
+        v-model:game="s_series"
+        :types="amiibo_types"
+        :series="amiibo_series" />
     <section>
         <AmiiboPreview v-for="data of shown_amiibos" 
             :amiibo="data" :key="data.head+data.tail" />

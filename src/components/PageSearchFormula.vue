@@ -4,14 +4,16 @@ import { computed, ref } from 'vue';
 
 const {
     page, setPage,
-    types
+    types, series
 } = defineProps<{
     page: number,
     setPage: (new_page: number) => void,
-    types: string[]
+    types: string[],
+    series: string[]
 }>();
 const search = defineModel("search");
 const s_type = defineModel("type");
+const s_game = defineModel("game");
 
 const use_advanced = ref<boolean>(false);
 const advanced_htmlclass = computed(() => `advanced ${use_advanced.value ? "show" : "hide"}`)
@@ -29,7 +31,10 @@ function toggleAdvanced() {
         <input class="input small" type="search" placeholder="Search" v-model="search" />
         <button class="input tiny" @click="toggleAdvanced">Adv.</button>
         <div :class="advanced_htmlclass">
-            <input class="input" type="search" placeholder="Game series">
+            <select class="input" v-model="s_game">
+                <option value="" selected>--- Game series ---</option>
+                <option v-for="t of series" :value="t">{{ t }}</option>
+            </select>
             <select class="input" v-model="s_type">
                 <option value="" selected>--- Type ---</option>
                 <option v-for="t of types" :value="t">{{ t }}</option>

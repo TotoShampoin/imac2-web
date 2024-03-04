@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { AmiiboType } from "@/composables/amiibos";
+import { addFavourite, isFavourite, removeFavourite } from "@/composables/favourites";
+import IconFavourite from "@/assets/icons/IconFavourite.vue";
 
 const { amiibo } = defineProps<{
     amiibo?: AmiiboType
@@ -23,6 +25,16 @@ const {
 
 const id = `${head}${tail}`;
 
+const is_favourite = ref<boolean>(isFavourite(`${head}${tail}`));
+function toggleFavourite() {
+    is_favourite.value = !is_favourite.value;
+    if(is_favourite.value) {
+        addFavourite(`${head}${tail}`);
+    } else {
+        removeFavourite(`${head}${tail}`);
+    }
+}
+
 </script>
 
 <template>
@@ -33,11 +45,16 @@ const id = `${head}${tail}`;
         <div> <h1>Series</h1> <p>{{ amiiboSeries }}</p> </div>
         <div> <h1>ID</h1> <p>{{ id }}</p> </div>
         <div> <h1>Type</h1> <p>{{ type }}</p> </div>
+        <label class="favourite">
+            <IconFavourite class="fav-icon" :filled="is_favourite" color="#FC0" />
+            <input type="checkbox" :checked="is_favourite" v-on:change="toggleFavourite" />
+        </label>
     </article>
 </template>
 
 <style scoped lang="scss">
 article {
+    position: relative;
     display: block;
     // width: 20rem;
     width: min(min-content, 100%);
@@ -75,5 +92,23 @@ img {
     border-radius: .5rem;
     object-fit: cover;
     object-position: top;
+}
+
+.favourite {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: block;
+    grid-area: favourite;
+    width: 2.5rem;
+    height: 2.5rem;
+    .fav-icon {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+    input {
+        display: none;
+    }
 }
 </style>

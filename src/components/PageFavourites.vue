@@ -1,27 +1,29 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import AmiiboCollection from './AmiiboCollection.vue';
-import { AmiiboType, getAllAmiibos, getNAmiibos } from '@/composables/amiibos';
-import LoadIcon from './LoadIcon.vue';
+import { storeToRefs } from 'pinia';
+
+import AmiiboCollection from '@/components/AmiiboCollection.vue';
+import LoadIcon from '@/components/LoadIcon.vue';
 import { getFavourites, isFavourite } from '@/composables/favourites';
+import { useAmiiboDatabase } from '@/store/amiibo';
 
 const favourites = ref<string[]>(getFavourites());
 
-const amiibo_database = ref<AmiiboType[]>([]);
-async function loadDatabase() {
-    amiibo_database.value = await getNAmiibos(...favourites.value);
-}
-loadDatabase();
+const amiibo_store = useAmiiboDatabase();
+const { AMIIBO_DATABASE, is_loading } = storeToRefs(amiibo_store);
+const { fillWithNAmiibos } = amiibo_store;
+
+fillWithNAmiibos(...favourites.value);
 
 const favourite_amiibos = computed(() => {
-    return amiibo_database.value.filter(amiibo => isFavourite(`${amiibo.head}${amiibo.tail}`));
+    return AMIIBO_DATABASE.value.filter(amiibo => isFavourite(`${amiibo.head}${amiibo.tail}`));
 });
 
 </script>
 
 <template>
     <AmiiboCollection :amiibos="favourite_amiibos"/>
-    <LoadIcon :shown="amiibo_database.length === 0" />
+    <LoadIcon :shown="is_loading" />
 </template>
 
 <style lang="scss" scoped>

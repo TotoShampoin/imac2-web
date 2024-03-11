@@ -1,29 +1,31 @@
 <script setup lang="ts">
-import AmiiboCollection from './AmiiboCollection.vue';
-import LoadIcon from "@/components/LoadIcon.vue";
 import { computed, ref } from 'vue';
-import { getAllAmiibos, AmiiboType } from "@/composables/amiibos";
+import { storeToRefs } from 'pinia';
+
+import AmiiboCollection from '@/components/AmiiboCollection.vue';
+import LoadIcon from "@/components/LoadIcon.vue";
+import PageSearchFormula from '@/components/PageSearchFormula.vue';
 import { PAGE_SIZE } from "@/composables/constants";
-import PageSearchFormula from './PageSearchFormula.vue';
+import { useAmiiboDatabase } from '@/store/amiibo';
 
 
 // === AMIIBOS ===
 
-const amiibo_database = ref<AmiiboType[]>([]);
-async function loadDatabase() {
-    amiibo_database.value = await getAllAmiibos();
-}
-loadDatabase();
+const amiibo_store = useAmiiboDatabase();
+const { AMIIBO_DATABASE, is_loading } = storeToRefs(amiibo_store);
+const { fillWithAllAmiibos } = amiibo_store;
+
+fillWithAllAmiibos();
 
 const amiibo_types = computed(() => 
-    amiibo_database.value
+    AMIIBO_DATABASE.value
         .map(amiibo => amiibo.type)
         .filter((amiibo, idx, array) => array.indexOf(amiibo) === idx)
         .sort()
 )
 
 const amiibo_series = computed(() =>
-    amiibo_database.value
+    AMIIBO_DATABASE.value
         .map(amiibo => amiibo.gameSeries)
         .filter((amiibo, idx, array) => array.indexOf(amiibo) === idx)
         .sort()
@@ -37,7 +39,7 @@ const s_type = ref<string>("");
 const s_series = ref<string>("");
 
 const amiibos = computed(() => 
-    amiibo_database.value
+    AMIIBO_DATABASE.value
         .filter(amiibo => 
             amiibo.name.includes(search.value) &&
             amiibo.type.includes(s_type.value) &&
@@ -73,7 +75,7 @@ const shown_amiibos = computed(() => amiibos.value.slice(page.value * PAGE_SIZE,
         :types="amiibo_types"
         :series="amiibo_series" />
     <AmiiboCollection :amiibos="shown_amiibos" />
-    <LoadIcon :shown="amiibo_database.length === 0" />
+    <LoadIcon :shown="is_loading" />
 </template>
 
 <style lang="scss" scoped></style>

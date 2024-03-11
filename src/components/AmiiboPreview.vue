@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { AmiiboType } from '@/composables/amiibos';
-import { RouterLink } from 'vue-router';
-import IconFavourite from '@/assets/icons/IconFavourite.vue';
 import { ref } from 'vue';
+import { RouterLink } from 'vue-router';
+
+import IconFavourite from '@/assets/icons/IconFavourite.vue';
 import { addFavourite, isFavourite, removeFavourite } from '@/composables/favourites';
+import { AmiiboType } from '@/store/amiibo';
 
 const { amiibo } = withDefaults(
     defineProps<{

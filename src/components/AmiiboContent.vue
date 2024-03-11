@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { AmiiboType } from "@/composables/amiibos";
-import { addFavourite, isFavourite, removeFavourite } from "@/composables/favourites";
+
 import IconFavourite from "@/assets/icons/IconFavourite.vue";
+import { addFavourite, isFavourite, removeFavourite } from "@/composables/favourites";
+import { AmiiboType } from "@/store/amiibo";
 
 const { amiibo } = defineProps<{
     amiibo?: AmiiboType

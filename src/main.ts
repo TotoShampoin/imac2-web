@@ -1,8 +1,10 @@
 import './assets/main.css'
 
 import { createApp } from 'vue'
-import App from './App.vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { createPinia } from 'pinia'
+
+import App from './App.vue'
 import PageSearch from '@/components/PageSearch.vue'
 import PageView from './components/PageView.vue'
 import PageFavourites from './components/PageFavourites.vue'
@@ -17,6 +19,9 @@ const router = createRouter({
     ]
 })
 
+const pinia = createPinia();
+
 createApp(App)
     .use(router)
+    .use(pinia)
     .mount('#app')

@@ -1,21 +1,23 @@
 <script setup lang="ts">
-import { getOneAmiibo, AmiiboType } from '@/composables/amiibos';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { storeToRefs } from 'pinia';
+
 import AmiiboContent from './AmiiboContent.vue';
 import LoadIcon from './LoadIcon.vue';
+import { useAmiiboDatabase } from '@/store/amiibo';
 
 const route = useRoute();
 const id = route.params.id as string;
 
-const amiibo = ref<AmiiboType>();
-const loading = ref<boolean>(false);
+const amiibo_store = useAmiiboDatabase();
+const { AMIIBO_DATABASE, is_loading } = storeToRefs(amiibo_store);
+const { fillWithOneAmiibo } = amiibo_store;
 
-async function loadAmiibo() {
-    amiibo.value = await getOneAmiibo(id);
-    loading.value = true;
-}
-loadAmiibo();
+fillWithOneAmiibo(id);
+
+const amiibo = computed(() => AMIIBO_DATABASE.value.find(amiibo => id === `${amiibo.head}${amiibo.tail}`));
+
 
 </script>
 
@@ -23,7 +25,7 @@ loadAmiibo();
     <section>
         <AmiiboContent :amiibo="amiibo" />
     </section>
-    <LoadIcon :shown="!loading" />
+    <LoadIcon :shown="is_loading" />
 </template>
 
 <style lang="scss" scoped>

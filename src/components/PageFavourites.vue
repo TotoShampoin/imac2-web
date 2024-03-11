@@ -4,10 +4,11 @@ import { storeToRefs } from 'pinia';
 
 import AmiiboCollection from '@/components/AmiiboCollection.vue';
 import LoadIcon from '@/components/LoadIcon.vue';
-import { getFavourites, isFavourite } from '@/composables/favourites';
+import { useFavourites } from '@/store/favourites';
 import { useAmiiboDatabase } from '@/store/amiibo';
 
-const favourites = ref<string[]>(getFavourites());
+const { favourites } = storeToRefs(useFavourites());
+const { isFavourite } = useFavourites();
 
 const amiibo_store = useAmiiboDatabase();
 const { AMIIBO_DATABASE, is_loading } = storeToRefs(amiibo_store);

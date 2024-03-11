@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
 
 import IconFavourite from '@/assets/icons/IconFavourite.vue';
-import { addFavourite, isFavourite, removeFavourite } from '@/composables/favourites';
+import { useFavourites } from "@/store/favourites";
 import { AmiiboType } from '@/store/amiibo';
 
 const { amiibo } = withDefaults(
@@ -11,6 +11,7 @@ const { amiibo } = withDefaults(
         amiibo: AmiiboType
     }>(), {}
 );
+const { addFavourite, isFavourite, removeFavourite } = useFavourites();
 
 const { name, image, head, tail } = amiibo!;
 

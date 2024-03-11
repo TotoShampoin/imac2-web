@@ -5,7 +5,7 @@ import { storeToRefs } from 'pinia';
 import AmiiboCollection from '@/components/AmiiboCollection.vue';
 import LoadIcon from "@/components/LoadIcon.vue";
 import PageSearchFormula from '@/components/PageSearchFormula.vue';
-import { PAGE_SIZE } from "@/composables/constants";
+import { PAGE_SIZE } from "@/constants";
 import { useAmiiboDatabase } from '@/store/amiibo';
 
 

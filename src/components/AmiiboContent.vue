@@ -2,12 +2,13 @@
 import { computed, ref } from "vue";
 
 import IconFavourite from "@/assets/icons/IconFavourite.vue";
-import { addFavourite, isFavourite, removeFavourite } from "@/composables/favourites";
+import { useFavourites } from "@/store/favourites";
 import { AmiiboType } from "@/store/amiibo";
 
 const { amiibo } = defineProps<{
     amiibo?: AmiiboType
 }>();
+const { addFavourite, isFavourite, removeFavourite } = useFavourites();
 
 const exists = computed(() => amiibo !== undefined)
 

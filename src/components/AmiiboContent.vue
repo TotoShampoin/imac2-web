@@ -48,7 +48,7 @@ function toggleFavourite() {
         <div> <h1>ID</h1> <p>{{ id }}</p> </div>
         <div> <h1>Type</h1> <p>{{ type }}</p> </div>
         <label class="favourite">
-            <IconFavourite class="fav-icon" :filled="is_favourite" color="#FC0" />
+            <IconFavourite :filled="is_favourite" color="#FC0" />
             <input type="checkbox" :checked="is_favourite" v-on:change="toggleFavourite" />
         </label>
     </article>
@@ -104,11 +104,6 @@ img {
     grid-area: favourite;
     width: 2.5rem;
     height: 2.5rem;
-    .fav-icon {
-        display: block;
-        width: 100%;
-        height: 100%;
-    }
     input {
         display: none;
     }

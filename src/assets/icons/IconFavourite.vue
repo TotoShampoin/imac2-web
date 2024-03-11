@@ -31,3 +31,11 @@ const color = computed(() => props.color);
 </svg>
 
 </template>
+
+<style lang="scss" scoped>
+svg {
+    display: block;
+        width: 100%;
+        height: 100%;
+}
+</style>

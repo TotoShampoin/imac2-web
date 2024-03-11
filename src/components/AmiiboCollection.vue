@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import AmiiboPreview from '@/components/AmiiboPreview.vue';
 import { AmiiboType } from '@/composables/amiibos';
-import { defineProps } from 'vue';
 
 const { amiibos } = defineProps<{
     amiibos: AmiiboType[];

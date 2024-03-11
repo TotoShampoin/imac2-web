@@ -25,6 +25,9 @@ const {
     jp: release_jp
 } = release!;
 
+const release_date_string = release_eu || release_na || release_au || release_jp || undefined;
+const release_date = release_date_string ? new Date(release_date_string).toLocaleDateString() : "Unknown";
+
 const id = `${head}${tail}`;
 
 const is_favourite = ref<boolean>(isFavourite(`${head}${tail}`));
@@ -41,31 +44,46 @@ function toggleFavourite() {
 
 <template>
     <article v-if="exists">
-        <img v-bind:src="image" alt="">
-        <div> <h1>Name</h1> <p>{{ name }}</p> </div>
-        <div> <h1>Character</h1> <p>{{ character }} from the {{ gameSeries }} series</p> </div>
-        <div> <h1>Series</h1> <p>{{ amiiboSeries }}</p> </div>
-        <div> <h1>ID</h1> <p>{{ id }}</p> </div>
-        <div> <h1>Type</h1> <p>{{ type }}</p> </div>
-        <label class="favourite">
-            <IconFavourite :filled="is_favourite" color="#FC0" />
-            <input type="checkbox" :checked="is_favourite" v-on:change="toggleFavourite" />
-        </label>
+        <div class="image">
+            <img v-bind:src="image" alt="">
+            <label class="favourite">
+                <IconFavourite :filled="is_favourite" color="#FC0" />
+                <input type="checkbox" :checked="is_favourite" v-on:change="toggleFavourite" />
+            </label>
+        </div>
+        <div class="box">
+            <div class="row"> <h1>Name</h1> <p>{{ name }}</p> </div>
+            <div class="row"> <h1>Character</h1> <p>{{ character }} from {{ gameSeries }}</p> </div>
+            <div class="row"> <h1>Series</h1> <p>{{ amiiboSeries }}</p> </div>
+            <div class="row"> <h1>ID</h1> <p>{{ id }}</p> </div>
+            <div class="row"> <h1>Type</h1> <p>{{ type }}</p> </div>
+            <div class="row"> <h1>Release</h1> <p>{{ release_date }}</p> </div>
+        </div>
     </article>
 </template>
 
 <style scoped lang="scss">
 article {
     position: relative;
-    display: block;
+    display: flex;
     // width: 20rem;
     width: min(min-content, 100%);
     margin: 1rem;
     padding: .5rem;
     border: #AAA 1px solid;
     border-radius: 1rem;
+
+    @media (max-width: 40rem) {
+        flex-direction: column;
+    }
 }
-div {
+.image {
+    position: relative;
+}
+.box {
+    display: block;
+}
+.row {
     display: flex;
     align-items: center;
     gap: .5rem;

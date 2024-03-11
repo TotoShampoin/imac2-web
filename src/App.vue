@@ -30,11 +30,19 @@ header {
     justify-content: space-between;
     align-items: center;
     background: #4C8;
-    color: #FFF;
+    color: #000;
     padding: .5rem;
 }
 main {
     flex-grow: 1;
     overflow: auto;
+}
+
+a {
+    padding: .25rem .5rem;
+    border-radius: .375rem;
+    background: #FFF5;
+    color: inherit;
+    text-decoration: none;
 }
 </style>

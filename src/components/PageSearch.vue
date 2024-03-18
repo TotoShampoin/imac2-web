@@ -55,12 +55,20 @@ function setPage(new_page: number | string) {
     if(typeof new_page === "string") {
         new_page = parseInt(new_page);
     }
-    if(
-        new_page >= 0 &&
-        new_page < Math.ceil(amiibos.value.length / PAGE_SIZE)
-    ) {
-        page.value = new_page;
-    }
+    // if(
+    //     new_page >= 0 &&
+    //     new_page < Math.ceil(amiibos.value.length / PAGE_SIZE)
+    // ) {
+    //     page.value = new_page;
+    // } else {
+    // }
+
+    let actual_new_page = new_page - 1;
+
+    page.value = Math.min(
+        Math.max(actual_new_page, 0),
+        Math.ceil(amiibos.value.length / PAGE_SIZE) - 1
+    );
 }
 
 // === RESULT ===
@@ -71,7 +79,7 @@ const shown_amiibos = computed(() => amiibos.value.slice(page.value * PAGE_SIZE,
 
 <template>
     <PageSearchFormula
-        :page="page" :set-page="setPage"
+        :page="page+1" :set-page="setPage"
         v-model:search="search"
         v-model:type="s_type"
         v-model:game="s_series"

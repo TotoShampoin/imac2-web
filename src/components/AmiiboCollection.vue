@@ -52,6 +52,11 @@ section {
     left: var(--x);
     padding: .5rem 1rem;
     background: #FFF;
+    border-radius: .5rem;
+    // border: #4C8 .125rem solid;
+    box-shadow:
+        inset 0 0 0 .125rem #FFF,
+        inset 0 0 0 .25rem #4C8;
     pointer-events: none;
     &.hovering {
         display: block;

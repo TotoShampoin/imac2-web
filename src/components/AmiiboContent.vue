@@ -122,6 +122,7 @@ img {
     grid-area: favourite;
     width: 2.5rem;
     height: 2.5rem;
+    cursor: pointer;
     input {
         display: none;
     }

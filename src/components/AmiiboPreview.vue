@@ -68,7 +68,10 @@ h1 {
     grid-area: name;
     margin: 0;
     text-wrap: nowrap;
-    overflow: auto;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 
@@ -92,6 +95,7 @@ img {
     grid-area: favourite;
     width: 1.5rem;
     height: 1.5rem;
+    cursor: pointer;
     input {
         display: none;
     }

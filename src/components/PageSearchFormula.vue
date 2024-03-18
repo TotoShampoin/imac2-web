@@ -42,7 +42,7 @@ function toggleAdvanced() {
         </div>
         <nav>
             <button class="input tiny" @click="setPage(page-1)">prev</button>
-            <input class="input tiny" @change="setPage(parseInt((<HTMLInputElement>$event.target).value))" :value="page">
+            <input class="input tiny" @change="setPage(parseInt((<HTMLInputElement>$event.target).value))" :value="page+1">
             <button class="input tiny" @click="setPage(page+1)">next</button>
         </nav>
     </header>

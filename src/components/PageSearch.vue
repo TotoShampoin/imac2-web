@@ -55,7 +55,10 @@ function setPage(new_page: number | string) {
     if(typeof new_page === "string") {
         new_page = parseInt(new_page);
     }
-    if((new_page + 1) * PAGE_SIZE < amiibos.value.length || new_page > 0) {
+    if(
+        new_page >= 0 &&
+        new_page < Math.ceil(amiibos.value.length / PAGE_SIZE)
+    ) {
         page.value = new_page;
     }
 }

@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
 
+import PlaceholderContent from './PlaceholderContent.vue';
 import AmiiboContent from './AmiiboContent.vue';
 import LoadIcon from './LoadIcon.vue';
 import { useAmiiboDatabase } from '@/store/amiibo';
@@ -30,7 +31,10 @@ const amiibo = computed(() => AMIIBO_DATABASE.value.find(amiibo => id === `${ami
             <h1>Amiibo not found</h1>
         </template>
     </section>
-    <LoadIcon :shown="is_loading" />
+    <section v-else>
+        <PlaceholderContent />
+    </section>
+    <!-- <LoadIcon :shown="is_loading" /> -->
 </template>
 
 <style lang="scss" scoped>

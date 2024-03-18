@@ -6,6 +6,7 @@ import AmiiboCollection from '@/components/AmiiboCollection.vue';
 import LoadIcon from '@/components/LoadIcon.vue';
 import { useFavourites } from '@/store/favourites';
 import { useAmiiboDatabase } from '@/store/amiibo';
+import PlaceholderCollection from './PlaceholderCollection.vue';
 
 const { favourites } = storeToRefs(useFavourites());
 const { isFavourite } = useFavourites();
@@ -23,8 +24,13 @@ const favourite_amiibos = computed(() => {
 </script>
 
 <template>
-    <AmiiboCollection :amiibos="favourite_amiibos"/>
-    <LoadIcon :shown="is_loading" />
+    <template v-if="!is_loading">
+        <AmiiboCollection :amiibos="favourite_amiibos" />
+    </template>
+    <template v-else>
+        <PlaceholderCollection />
+    </template>
+    <!-- <LoadIcon :shown="is_loading" /> -->
 </template>
 
 <style lang="scss" scoped>

@@ -10,8 +10,6 @@ const { amiibo } = defineProps<{
 }>();
 const { addFavourite, isFavourite, removeFavourite } = useFavourites();
 
-const exists = computed(() => amiibo !== undefined)
-
 const {
     name, image, amiiboSeries, character, head, release, gameSeries, tail, type
 } = amiibo;
@@ -43,7 +41,7 @@ function toggleFavourite() {
 </script>
 
 <template>
-    <article v-if="exists">
+    <article>
         <div class="image">
             <img v-bind:src="image" alt="">
             <label class="favourite">
@@ -57,7 +55,6 @@ function toggleFavourite() {
             <div class="row"> <h1>Series</h1> <p>{{ amiiboSeries }}</p> </div>
             <div class="row"> <h1>ID</h1> <p>{{ id }}</p> </div>
             <div class="row"> <h1>Type</h1> <p>{{ type }}</p> </div>
-            <!-- <div class="row"> <h1>Release</h1> <p>{{ release_date }}</p> </div> -->
             <div class="row"> <h1>Release [AU]</h1> <p>{{ release_date_au }}</p> </div>
             <div class="row"> <h1>Release [EU]</h1> <p>{{ release_date_eu }}</p> </div>
             <div class="row"> <h1>Release [JP]</h1> <p>{{ release_date_jp }}</p> </div>
@@ -70,8 +67,6 @@ function toggleFavourite() {
 article {
     position: relative;
     display: flex;
-    // width: 20rem;
-    width: min(min-content, 100%);
     margin: 1rem;
     padding: .5rem;
     gap: .5rem;
@@ -102,12 +97,10 @@ article {
 
 h1, p {
     margin: 0;
-    // text-wrap: nowrap;
-    // overflow: auto;
+    border-radius: .5rem;
 }
 h1 {
     padding: .25rem 1rem;
-    border-radius: .5rem;
     background: #4C8;
     color: #FFF;
 }

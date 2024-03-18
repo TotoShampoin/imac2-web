@@ -7,6 +7,7 @@ import LoadIcon from "@/components/LoadIcon.vue";
 import PageSearchFormula from '@/components/PageSearchFormula.vue';
 import { PAGE_SIZE } from "@/constants";
 import { useAmiiboDatabase } from '@/store/amiibo';
+import PlaceholderCollection from './PlaceholderCollection.vue';
 
 
 // === AMIIBOS ===
@@ -85,8 +86,12 @@ const shown_amiibos = computed(() => amiibos.value.slice(page.value * PAGE_SIZE,
         v-model:game="s_series"
         :types="amiibo_types"
         :series="amiibo_series" />
-    <AmiiboCollection :amiibos="shown_amiibos" />
-    <LoadIcon :shown="is_loading" />
+    <template v-if="!is_loading">
+        <AmiiboCollection :amiibos="shown_amiibos" />
+    </template>
+    <template v-else>
+        <PlaceholderCollection />
+    </template>
 </template>
 
 <style lang="scss" scoped></style>

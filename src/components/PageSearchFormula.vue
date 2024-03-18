@@ -53,21 +53,32 @@ function toggleAdvanced() {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     width: 100%;
-    max-width: 20rem;
+    max-width: 18rem;
     margin: 1rem auto;
-    gap: 1rem;
+    gap: .5rem;
 }
 .input {
     display: block;
     width: 100%;
-    padding: .5rem 1rem;
+    padding: .25rem .75rem;
     font: inherit;
     grid-column: span 3;
+    border: none;
+    border-radius: .25rem;
+        border-bottom: .125rem solid #4C8;
     &.small {
         grid-column: span 2;
     }
     &.tiny {
         grid-column: span 1;
+    }
+
+    &:is(button) {
+        background-color: #4C8;
+        cursor: pointer;
+    }
+    &:focus {
+        outline: .125rem solid #4C8;
     }
 }
 .advanced {
@@ -89,4 +100,5 @@ nav {
         text-align: center;
     }
 }
+
 </style>

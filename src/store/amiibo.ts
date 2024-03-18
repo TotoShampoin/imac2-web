@@ -13,9 +13,14 @@ export const useAmiiboDatabase = defineStore("amiibos", () => {
         return json.amiibo;
     }
     async function fetchOneAmiibo(id: string) {
-        const res = await fetch(`https://www.amiiboapi.com/api/amiibo?id=${id}`);
-        const json = await res.json() as {amiibo: AmiiboType};
-        return json.amiibo;
+        try {
+            const res = await fetch(`https://www.amiiboapi.com/api/amiibo?id=${id}`);
+            const json = await res.json() as {amiibo: AmiiboType};
+            return json.amiibo;
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
     }
     async function fillWithAllAmiibos() {
         if(is_filled) return;
@@ -27,13 +32,17 @@ export const useAmiiboDatabase = defineStore("amiibos", () => {
     async function fillWithOneAmiibo(id: string) {
         if(is_filled) return;
         is_loading.value = true;
-        AMIIBO_DATABASE.value = [await fetchOneAmiibo(id)];
+        const amiibo = await fetchOneAmiibo(id);
+        AMIIBO_DATABASE.value = amiibo ? [amiibo] : [];
         is_loading.value = false;
     }
     async function fillWithNAmiibos(...ids: string[]) {
         if(is_filled) return;
         is_loading.value = true;
-        AMIIBO_DATABASE.value = await Promise.all(ids.map(id => fetchOneAmiibo(id)));
+        AMIIBO_DATABASE.value = await Promise.all(ids
+            .map(id => fetchOneAmiibo(id))
+            .filter(x => x !== null) as Promise<AmiiboType>[]
+        );
         is_loading.value = false;
     }
     

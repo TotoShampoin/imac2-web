@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
 
@@ -22,8 +22,13 @@ const amiibo = computed(() => AMIIBO_DATABASE.value.find(amiibo => id === `${ami
 </script>
 
 <template>
-    <section>
-        <AmiiboContent :amiibo="amiibo" />
+    <section v-if="!is_loading">
+        <template v-if="amiibo">
+            <AmiiboContent :amiibo="amiibo" />
+        </template>
+        <template v-else>
+            <h1>Amiibo not found</h1>
+        </template>
     </section>
     <LoadIcon :shown="is_loading" />
 </template>

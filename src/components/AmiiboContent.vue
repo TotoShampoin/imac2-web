@@ -6,27 +6,27 @@ import { useFavourites } from "@/store/favourites";
 import { AmiiboType } from "@/store/amiibo";
 
 const { amiibo } = defineProps<{
-    amiibo?: AmiiboType
+    amiibo: AmiiboType
 }>();
 const { addFavourite, isFavourite, removeFavourite } = useFavourites();
 
 const exists = computed(() => amiibo !== undefined)
 
-// const properties = computed(() => Object.entries(amiibo!).map(prop => ({key: prop[0], value: prop[1]})));
-
 const {
     name, image, amiiboSeries, character, head, release, gameSeries, tail, type
-} = amiibo!;
+} = amiibo;
 
 const {
     au: release_au,
     eu: release_eu,
     na: release_na,
     jp: release_jp
-} = release!;
+} = release;
 
-const release_date_string = release_eu || release_na || release_au || release_jp || undefined;
-const release_date = release_date_string ? new Date(release_date_string).toLocaleDateString() : "Unknown";
+const release_date_au = new Date(release_au).toLocaleDateString();
+const release_date_eu = new Date(release_eu).toLocaleDateString();
+const release_date_na = new Date(release_na).toLocaleDateString();
+const release_date_jp = new Date(release_jp).toLocaleDateString();
 
 const id = `${head}${tail}`;
 
@@ -57,7 +57,11 @@ function toggleFavourite() {
             <div class="row"> <h1>Series</h1> <p>{{ amiiboSeries }}</p> </div>
             <div class="row"> <h1>ID</h1> <p>{{ id }}</p> </div>
             <div class="row"> <h1>Type</h1> <p>{{ type }}</p> </div>
-            <div class="row"> <h1>Release</h1> <p>{{ release_date }}</p> </div>
+            <!-- <div class="row"> <h1>Release</h1> <p>{{ release_date }}</p> </div> -->
+            <div class="row"> <h1>Release [AU]</h1> <p>{{ release_date_au }}</p> </div>
+            <div class="row"> <h1>Release [EU]</h1> <p>{{ release_date_eu }}</p> </div>
+            <div class="row"> <h1>Release [JP]</h1> <p>{{ release_date_jp }}</p> </div>
+            <div class="row"> <h1>Release [NA]</h1> <p>{{ release_date_na }}</p> </div>
         </div>
     </article>
 </template>
@@ -70,6 +74,7 @@ article {
     width: min(min-content, 100%);
     margin: 1rem;
     padding: .5rem;
+    gap: .5rem;
     border: #AAA 1px solid;
     border-radius: 1rem;
 
@@ -81,13 +86,15 @@ article {
     position: relative;
 }
 .box {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
 }
 .row {
     display: flex;
     align-items: center;
     gap: .5rem;
-    padding: .5rem;
+    // padding: .5rem;
     > * {
         width: fit-content;
     }
@@ -100,7 +107,7 @@ h1, p {
 }
 h1 {
     padding: .25rem 1rem;
-    border-radius: .25rem;
+    border-radius: .5rem;
     background: #4C8;
     color: #FFF;
 }

@@ -13,6 +13,9 @@ import { RouterLink, RouterView } from 'vue-router'
         </header>
         <main>
             <RouterView />
+        <footer>
+            <p>&copy; TotoShampoin 2024</p>
+        </footer>
         </main>
     </div>
 </template>
@@ -38,6 +41,13 @@ header nav {
     align-items: center;
     margin: 0 auto;
     max-width: 80rem;
+}
+footer {
+    padding: .5rem .75rem;
+    p {
+        margin: 0;
+        font-size: .75rem;
+    }
 }
 main {
     flex-grow: 1;

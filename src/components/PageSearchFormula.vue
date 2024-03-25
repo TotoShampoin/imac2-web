@@ -50,9 +50,9 @@ function toggleAdvanced() {
             <input v-else class="input tiny" type="checkbox" v-model="s_descending" data-what="order" />
         </div>
         <nav>
-            <button class="input tiny" @click="setPage(page-1)">prev</button>
+            <button class="input tiny" @click="setPage(page-1)">◄</button>
             <input class="input tiny" @change="setPage(parseInt((<HTMLInputElement>$event.target).value))" :value="page">
-            <button class="input tiny" @click="setPage(page+1)">next</button>
+            <button class="input tiny" @click="setPage(page+1)">►</button>
         </nav>
     </header>
 </template>

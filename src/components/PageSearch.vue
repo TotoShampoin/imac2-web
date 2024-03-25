@@ -14,7 +14,7 @@ const sorts: {[key: string]: (a: AmiiboType, b: AmiiboType) => number} = {
     "Name": (a, b) => a.name.localeCompare(b.name),
     "Game Series": (a, b) => a.gameSeries.localeCompare(b.gameSeries),
     "Amiibo Series": (a, b) => a.amiiboSeries.localeCompare(b.amiiboSeries),
-    "Release" : (a, b) => getAmiiboDate(a).getTime() - getAmiiboDate(b).getTime(),
+    "Release" : (b, a) => getAmiiboDate(a).getTime() - getAmiiboDate(b).getTime(),
     "Random": (a, b) => Math.random() - 0.5,
 }
 

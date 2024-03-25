@@ -5,7 +5,7 @@ import { storeToRefs } from 'pinia';
 import AmiiboCollection from '@/components/AmiiboCollection.vue';
 import { useFavourites } from '@/store/favourites';
 import { useAmiiboDatabase } from '@/store/amiibo';
-import PlaceholderCollection from './PlaceholderCollection.vue';
+import PlaceholderCollection from '@/components/PlaceholderCollection.vue';
 
 const { favourites } = storeToRefs(useFavourites());
 const { isFavourite } = useFavourites();

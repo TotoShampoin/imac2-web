@@ -3,11 +3,11 @@ import { computed, ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import AmiiboCollection from '@/components/AmiiboCollection.vue';
-import PageSearchFormula from '@/components/PageSearchFormula.vue';
+import PageSearchFormula from '@/components/SearchFormula.vue';
 import { PAGE_SIZE } from "@/constants";
 import { AmiiboType, useAmiiboDatabase, getAmiiboDate } from '@/store/amiibo';
 import { useSearchSession } from '@/store/search-session';
-import PlaceholderCollection from './PlaceholderCollection.vue';
+import PlaceholderCollection from '@/components/PlaceholderCollection.vue';
 
 
 const sorts: {[key: string]: (a: AmiiboType, b: AmiiboType) => number} = {

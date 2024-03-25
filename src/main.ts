@@ -5,9 +5,9 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import { createPinia } from 'pinia'
 
 import App from './App.vue'
-import PageSearch from '@/components/PageSearch.vue'
-import PageView from './components/PageView.vue'
-import PageFavourites from './components/PageFavourites.vue'
+import PageSearch from '@/pages/PageSearch.vue'
+import PageView from './pages/PageView.vue'
+import PageFavourites from './pages/PageFavourites.vue'
 
 
 const router = createRouter({

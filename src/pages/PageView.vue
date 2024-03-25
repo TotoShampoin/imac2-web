@@ -3,8 +3,8 @@ import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
 
-import PlaceholderContent from './PlaceholderContent.vue';
-import AmiiboContent from './AmiiboContent.vue';
+import PlaceholderContent from '@/components/PlaceholderContent.vue';
+import AmiiboContent from '@/components/AmiiboContent.vue';
 import { useAmiiboDatabase } from '@/store/amiibo';
 
 const route = useRoute();

@@ -33,7 +33,6 @@ const amiibo = computed(() => AMIIBO_DATABASE.value.find(amiibo => id === `${ami
     <section v-else>
         <PlaceholderContent />
     </section>
-    <!-- <LoadIcon :shown="is_loading" /> -->
 </template>
 
 <style lang="scss" scoped>

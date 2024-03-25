@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { AmiiboType } from '@/store/amiibo';
 import { computed, ref } from 'vue';
 
 

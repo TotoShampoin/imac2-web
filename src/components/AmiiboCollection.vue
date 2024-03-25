@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import PlaceholderCollection from '@/components/PlaceholderCollection.vue';
 import AmiiboPreview from '@/components/AmiiboPreview.vue';
 import { AmiiboType } from '@/store/amiibo';
 import { computed, ref } from 'vue';

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import AmiiboCollection from '@/components/AmiiboCollection.vue';
@@ -29,7 +29,6 @@ const favourite_amiibos = computed(() => {
     <template v-else>
         <PlaceholderCollection />
     </template>
-    <!-- <LoadIcon :shown="is_loading" /> -->
 </template>
 
 <style lang="scss" scoped>

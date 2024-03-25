@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import AmiiboCollection from '@/components/AmiiboCollection.vue';
 import PageSearchFormula from '@/components/PageSearchFormula.vue';
 import { PAGE_SIZE } from "@/constants";
 import { AmiiboType, useAmiiboDatabase, getAmiiboDate } from '@/store/amiibo';
+import { useSearchSession } from '@/store/search-session';
 import PlaceholderCollection from './PlaceholderCollection.vue';
 
 
@@ -42,11 +43,30 @@ const amiibo_series = computed(() =>
 
 // === SEARCH ===
 
+const { loadSearches, saveSearches } = useSearchSession();
+
 const search = ref<string>("");
 const s_type = ref<string>("");
 const s_series = ref<string>("");
 const s_sort = ref<string>("Release");
 const s_descending = ref<boolean>(false);
+
+search.value = loadSearches().search || "";
+s_type.value = loadSearches().type || "";
+s_series.value = loadSearches().series || "";
+s_sort.value = loadSearches().sort || "Release";
+s_descending.value = loadSearches().descending || false;
+
+watch([search, s_type, s_series, s_sort, s_descending], () => {
+    setPage(1);
+    saveSearches({
+        search: search.value,
+        type: s_type.value,
+        series: s_series.value,
+        sort: s_sort.value,
+        descending: s_descending.value,
+    });
+});
 
 const amiibos = computed(() => 
     AMIIBO_DATABASE.value

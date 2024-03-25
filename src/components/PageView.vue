@@ -5,7 +5,6 @@ import { storeToRefs } from 'pinia';
 
 import PlaceholderContent from './PlaceholderContent.vue';
 import AmiiboContent from './AmiiboContent.vue';
-import LoadIcon from './LoadIcon.vue';
 import { useAmiiboDatabase } from '@/store/amiibo';
 
 const route = useRoute();

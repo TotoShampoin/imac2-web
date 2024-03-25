@@ -3,7 +3,6 @@ import { computed, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import AmiiboCollection from '@/components/AmiiboCollection.vue';
-import LoadIcon from '@/components/LoadIcon.vue';
 import { useFavourites } from '@/store/favourites';
 import { useAmiiboDatabase } from '@/store/amiibo';
 import PlaceholderCollection from './PlaceholderCollection.vue';

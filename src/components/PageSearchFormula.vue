@@ -1,19 +1,23 @@
 <script setup lang="ts">
+import { AmiiboType } from '@/store/amiibo';
 import { computed, ref } from 'vue';
 
 
 const {
     page, setPage,
-    types, series
+    types, series, sorts
 } = defineProps<{
     page: number,
     setPage: (new_page: number) => void,
     types: string[],
-    series: string[]
+    series: string[],
+    sorts: string[],
 }>();
-const search = defineModel("search");
-const s_type = defineModel("type");
-const s_game = defineModel("game");
+const search = defineModel<string>("search");
+const s_type = defineModel<string>("type");
+const s_game = defineModel<string>("game");
+const s_sort = defineModel<string>("sort");
+const s_descending = defineModel<boolean>("descending");
 
 const use_advanced = ref<boolean>(false);
 const advanced_htmlclass = computed(() => `advanced ${use_advanced.value ? "show" : "hide"}`)
@@ -39,6 +43,11 @@ function toggleAdvanced() {
                 <option value="" selected>--- Type ---</option>
                 <option v-for="t of types" :value="t">{{ t }}</option>
             </select>
+            <select class="input small" v-model="s_sort">
+                <option v-for="t of sorts" :value="t">Sort by {{ t.toLowerCase() }}</option>
+            </select>
+            <button v-if="s_sort == 'Random'" class="input tiny" @click="s_descending = !s_descending">↺</button>
+            <input v-else class="input tiny" type="checkbox" v-model="s_descending" data-what="order" />
         </div>
         <nav>
             <button class="input tiny" @click="setPage(page-1)">prev</button>
@@ -73,18 +82,39 @@ function toggleAdvanced() {
         grid-column: span 1;
     }
 
+    &:is(input[type="checkbox"]) {
+        appearance: none;
+        margin: 0;
+        color: #396;
+        &:checked {
+            background-color: #4C8;
+            color: black;
+        }
+        /* THIS IS NOT GOOD CSS CODE */
+        &[data-what=order]::after {
+            display: block;
+            width: 100%;
+            text-align: center;
+            content: "▲";
+        }
+        &[data-what=order]:checked::after {
+            content: "▼";
+        }
+    }
     &:is(button) {
         background-color: #4C8;
+        font-weight: bold;
         cursor: pointer;
     }
     &:focus {
         outline: .125rem solid #4C8;
+        outline-offset: .125rem;
     }
 }
 .advanced {
     display: grid;
     grid-column: span 3;
-    grid-row: span 2;
+    grid-row: span 3;
     grid-template-columns: subgrid;
     grid-template-rows: subgrid;
     &.hide {

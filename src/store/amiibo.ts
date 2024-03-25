@@ -55,6 +55,15 @@ export const useAmiiboDatabase = defineStore("amiibos", () => {
     };
 });
 
+export function getAmiiboDate(amiibo: AmiiboType, region: "au" | "eu" | "jp" | "na" | undefined = undefined): Date {
+    if(region && amiibo.release[region]) return new Date(amiibo.release[region]);
+    else if(amiibo.release.na) return new Date(amiibo.release.na);
+    else if(amiibo.release.eu) return new Date(amiibo.release.eu);
+    else if(amiibo.release.au) return new Date(amiibo.release.au);
+    else if(amiibo.release.jp) return new Date(amiibo.release.jp);
+    else return new Date(0);
+}
+
 
 
 export type AmiiboType = {

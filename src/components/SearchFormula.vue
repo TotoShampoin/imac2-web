@@ -105,9 +105,14 @@ function toggleAdvanced() {
         font-weight: bold;
         cursor: pointer;
     }
-    &:focus {
+    &:focus, &:hover {
         outline: .125rem solid #4C8;
         outline-offset: .125rem;
+    }
+
+    transition: translate .125s ease;
+    &:active {
+        translate: 0 .125rem;
     }
 }
 .advanced {
